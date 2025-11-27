@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SimpleCRM — Customer Relationship Management</title>
+  <style>
+    /* ----------  BASE  ---------- */
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2;
+      --accent:#4f46e5; --accent-2:#06b6d4; --glass: rgba(255,255,255,0.03);
+      --radius:14px; --gap:18px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071025 0%, #081526 60%);color:#e6eef6;min-height:100vh}
+    a{color:inherit}
+    .container{max-width:1200px;margin:28px auto;padding:20px}
+
+    /* ----------  HEADER  ---------- */
+    header{display:flex;align-items:center;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    .brand p{margin:0;color:var(--muted);font-size:12px}
+
+    /* ----------  LAYOUT  ---------- */
+    .main{display:grid;grid-template-columns:260px 1fr;gap:20px;margin-top:18px}
+    nav{background:var(--card);border-radius:12px;padding:16px;height:calc(100vh - 160px);overflow:auto}
+    nav ul{list-style:none;padding:0;margin:0}
+    nav li{padding:10px;border-radius:8px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+    nav li.active{background:linear-gradient(90deg, rgba(79,70,229,0.12), rgba(6,182,212,0.06));color:#dce9ff}
+
+    /* ----------  DASHBOARD PANEL  ---------- */
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:12px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .search{display:flex;align-items:center;border-radius:10px;padding:8px 12px;background:var(--glass);gap:10px}
+    .search input{background:transparent;border:0;outline:none;color:inherit}
+    .stats{display:flex;gap:12px;margin-top:18px}
+    .stat{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.01));text-align:left}
+    .stat h3{margin:0;font-size:20px}
+    .stat p{margin:4px 0 0;color:var(--muted);font-size:12px}
+
+    /* ----------  LEADS TABLE  ---------- */
+    table{width:100%;border-collapse:collapse;margin-top:16px}
+    th,td{padding:12px 10px;text-align:left;font-size:14px}
+    thead th{color:var(--muted);font-size:12px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    tbody tr{border-radius:8px;background:transparent}
+    tbody tr:hover{background:rgba(255,255,255,0.02)}
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* ----------  LEAD CARD  ---------- */
+    .lead-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent)}
+    .avatar{width:44px;height:44px;border-radius:8px;background:linear-gradient(180deg,#fff2 0,#fff0 60%);display:flex;align-items:center;justify-content:center;color:#0f1724;font-weight:700}
+
+    /* ----------  FORM  ---------- */
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    input,select,textarea{padding:10px;border-radius:10px;border:0;background:rgba(255,255,255,0.02);color:inherit;outline:none}
+    .full{grid-column:1 / -1}
+    .btn{padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));cursor:pointer;color:white}
+
+    /* ----------  FOOTER  ---------- */
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* ----------  RESPONSIVE  ---------- */
+    @media (max-width:920px){
+      .main{grid-template-columns:1fr;}
+      nav{height:auto}
+      form{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">SC</div>
+        <div>
+          <h1>SimpleCRM</h1>
+          <p>Customer Relationship Management • Web demo</p>
+        </div>
+      </div>
+      <div style="margin-left:auto;color:var(--muted)">Signed in as <strong>sales@company.com</strong></div>
+    </header>
+
+    <div class="main">
+      <nav>
+        <ul>
+          <li class="active">🏠 Dashboard</li>
+          <li>📋 Leads</li>
+          <li>💬 Messages</li>
+          <li>📈 Reports</li>
+          <li>⚙️ Settings</li>
+        </ul>
+
+        <div style="margin-top:18px;color:var(--muted);font-size:13px">Quick actions</div>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn" style="flex:1">+ New Lead</button>
+        </div>
+      </nav>
+
+      <section>
+        <div class="panel">
+          <div class="topbar">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="search">
+                🔎 <input placeholder="Search leads, companies, emails..." />
+              </div>
+              <div class="tag">Filter: All</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div style="text-align:right;color:var(--muted);font-size:12px">Today • <strong>24 Nov 2025</strong></div>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <h3>82</h3>
+              <p>Active Leads</p>
+            </div>
+            <div class="stat">
+              <h3>12</h3>
+              <p>Converted (Month)</p>
+            </div>
+            <div class="stat">
+              <h3>$24.3k</h3>
+              <p>Potential Value</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:18px">Recent Leads</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Stage</th>
+                <th>Owner</th>
+                <th>Last Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="lead-card"><div class="avatar">MJ</div><div>
+                    <div style="font-weight:600">Maya Jain</div>
+                    <div style="color:var(--muted);font-size:12px">maya@acme.co</div>
+                  </div></div>
+                </td>
+                <td>Acme Co.</td>
+                <td><span class="tag">Proposal</span></td>
+                <td>Rohit</td>
+                <td>Nov 20, 2025</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="lead-card"><div class="avatar">AK</div><div>
+                    <div style="font-weight:600">Akhil Kumar</div>
+                    <div style="color:var(--muted);font-size:12px">akhil@byte.co</div>
+                  </div></div>
+                </td>
+                <td>Byte Labs</td>
+                <td><span class="tag">Contacted</span></td>
+                <td>Priya</td>
+                <td>Nov 22, 2025</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="lead-card"><div class="avatar">SR</div><div>
+                    <div style="font-weight:600">Suresh Rao</div>
+                    <div style="color:var(--muted);font-size:12px">suresh@terra.in</div>
+                  </div></div>
+                </td>
+                <td>Terra Pvt Ltd</td>
+                <td><span class="tag">Negotiation</span></td>
+                <td>Aisha</td>
+                <td>Nov 23, 2025</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="display:flex;gap:12px;margin-top:16px">
+            <div style="flex:1">
+              <h4>Add New Lead</h4>
+              <form>
+                <input placeholder="Full name" />
+                <input placeholder="Company" />
+                <input placeholder="Email" />
+                <input placeholder="Phone" />
+                <select class="full">
+                  <option>Stage: New</option>
+                  <option>Contacted</option>
+                  <option>Proposal</option>
+                  <option>Negotiation</option>
+                </select>
+                <textarea class="full" rows="3" placeholder="Notes / Next steps"></textarea>
+                <div class="full" style="display:flex;justify-content:flex-end">
+                  <button class="btn">Create Lead</button>
+                </div>
+              </form>
+            </div>
+
+            <div style="width:320px">
+              <h4>Todayʼs Tasks</h4>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.02)">Call Maya — follow up on proposal</div>
+                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.02)">Email Akhil — schedule demo</div>
+                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.02)">Prepare quote for Suresh</div>
+              </div>
+
+              <h4 style="margin-top:16px">Quick Contact</h4>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <input placeholder="Message" style="flex:1" />
+                <button class="btn">Send</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <footer>Built with ❤️ • SimpleCRM demo • HTML & CSS</footer>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
